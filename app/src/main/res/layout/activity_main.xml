@@ -18,7 +18,8 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/page_title" />
+            app:title="@string/page_title"
+            app:navigationIcon="@drawable/ic_tatoeba"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
