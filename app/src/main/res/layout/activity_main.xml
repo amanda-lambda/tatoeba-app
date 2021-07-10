@@ -18,29 +18,29 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/page_title"
-            app:navigationIcon="@drawable/ic_tatoeba"/>
+            app:navigationIcon="@drawable/ic_tatoeba"
+            app:title="@string/page_title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <Spinner
         android:id="@+id/from_spinner"
-        android:layout_width="100dp"
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <Spinner
         android:id="@+id/to_spinner"
-        android:layout_width="100dp"
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/from_spinner"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <TextView
@@ -122,5 +122,23 @@
         android:textColor="#969696"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/translations" />
+
+    <EditText
+        android:id="@+id/searchQuery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:autoText="true"
+        android:ems="10"
+        android:hint="🔎 Search"
+        android:inputType="textPersonName"
+        android:text="@string/default_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/to_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
