@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Tatoeba</string>
+    <string name="page_title">Tatoeba</string>
+    <string name="search">Search</string>
+    <string name="content_description_search">Search query input here.</string>
+    <string name="default_sentence">Let\'s do some language study together!</string>
+    <string name="default_translation">Search Tatoeba for example sentences and translations.</string>
+</resources>
