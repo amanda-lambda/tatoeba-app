@@ -5,4 +5,6 @@
     <string name="content_description_search">Search query input here.</string>
     <string name="default_sentence">Let\'s do some language study together!</string>
     <string name="default_translation">Search Tatoeba for example sentences and translations.</string>
+    <string name="default_track_result">1 / 1</string>
+    <string name="default_source_url">❤</string>
 </resources>
