@@ -7,4 +7,20 @@
     <string name="default_translation">Search Tatoeba for example sentences and translations.</string>
     <string name="default_track_result">1 / 1</string>
     <string name="default_source_url">❤</string>
+
+    <string-array name="languages_array">
+        <item>🇫🇷 French</item>
+        <item>🇩🇪 German</item>
+        <item>🇪🇸 Spanish</item>
+        <item>🇨🇳 Chinese</item>
+        <item>🇯🇵 Japanese</item>
+        <item>🇵🇭 Tagalog</item>
+        <item>🕌 Arabic</item>
+        <item>🇷🇺 Russian</item>
+        <item>🇰🇷 Korean</item>
+        <item>🇮🇳 Hindi</item>
+        <item>🇬🇧 English</item>
+        <item>🇻🇳 Vietnamese</item>
+    </string-array>
+
 </resources>

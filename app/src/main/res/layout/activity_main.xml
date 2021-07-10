@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="sans-serif"
         android:text="@string/default_track_result"
         android:textColor="#646464"
         android:textSize="24sp"
