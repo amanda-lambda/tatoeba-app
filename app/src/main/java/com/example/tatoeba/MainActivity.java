@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private String from_lang;
     private String to_lang;
     private PyObject scraper;
+    private int curr_page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,11 @@ public class MainActivity extends AppCompatActivity {
                     PyObject module = py.getModule("scraper");
                     scraper = module.callAttr("TatoebaScraper",
                             String.valueOf(query.getText()), from_lang, to_lang);
-                    Map<PyObject, PyObject> result = scraper.callAttr("get_sentence").asMap();
+                    Map<PyObject, PyObject> result = scraper.callAttr("get_sentence", curr_page).asMap();
+
+                    if (result.isEmpty()) {
+                        return true;
+                    }
 
                     // UPDATE UI -------------------------
                     TextView sentence = findViewById(R.id.sentence);
@@ -109,10 +114,18 @@ public class MainActivity extends AppCompatActivity {
                     TextView source_url = findViewById(R.id.source_url);
                     TextView track_result = findViewById(R.id.track_result);
 
-                    sentence.setText(result.get("sentence").toString());
-                    translations.setText(result.get("translations").toString());
-                    source_url.setText(result.get("url").toString());
-                    track_result.setText(result.get("id").toString() + " / " + result.get("total").toString());
+                    if (result.isEmpty()) {
+                        sentence.setText("No search results found for your query " + String.valueOf(query.getText()) + ".");
+                        translations.setText("Please try again with another query!");
+                        source_url.setText("\uD83D\uDC94");
+                        return true;
+                    }
+                    else {
+                        sentence.setText(result.get("sentence").toString());
+                        translations.setText(result.get("translations").toString());
+                        source_url.setText(result.get("url").toString());
+                        track_result.setText(String.valueOf(curr_page) + " / " + scraper.get("num_results").toString());
+                    }
 
                     handled = true;
                 }
@@ -122,12 +135,49 @@ public class MainActivity extends AppCompatActivity {
 
         Button page_left = findViewById(R.id.page_left);
         page_left.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
+                if (curr_page > 1) {
+                    curr_page = curr_page - 1;
 
+                    Map<PyObject, PyObject> result = scraper.callAttr("get_sentence", curr_page).asMap();
+
+                    TextView sentence = findViewById(R.id.sentence);
+                    TextView translations = findViewById(R.id.translations);
+                    TextView source_url = findViewById(R.id.source_url);
+                    TextView track_result = findViewById(R.id.track_result);
+
+                    sentence.setText(result.get("sentence").toString());
+                    translations.setText(result.get("translations").toString());
+                    source_url.setText(result.get("url").toString());
+                    track_result.setText(String.valueOf(curr_page) + " / " + scraper.get("num_results").toString());
+                }
             }
         });
+
+        Button page_right = findViewById(R.id.page_right);
+        page_right.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (curr_page < scraper.get("num_results").toInt()) {
+                    curr_page = curr_page + 1;
+
+                    Map<PyObject, PyObject> result = scraper.callAttr("get_sentence", curr_page).asMap();
+
+                    TextView sentence = findViewById(R.id.sentence);
+                    TextView translations = findViewById(R.id.translations);
+                    TextView source_url = findViewById(R.id.source_url);
+                    TextView track_result = findViewById(R.id.track_result);
+
+                    sentence.setText(result.get("sentence").toString());
+                    translations.setText(result.get("translations").toString());
+                    source_url.setText(result.get("url").toString());
+                    track_result.setText(String.valueOf(curr_page) + " / " + scraper.get("num_results").toString());
+                }
+            }
+        });
+
+
 
         // TODO - Check empty dictionary / end of dictionary
         // TODO - Paging buttons

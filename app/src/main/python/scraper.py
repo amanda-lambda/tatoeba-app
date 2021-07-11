@@ -61,43 +61,41 @@ class TatoebaScraper():
         # Instantiate page counter and search result counters
         self.page = 1 # Current Tatoeba search results page
         self.num_pages = -1 # Number of search result pages
-        self.n = 1 # Current returned Tatoeba search result
         self.num_results = -1 # Number of search result pages
         self.results = [] # Our current list of fetched Tatoeba results
 
         self.scrape()
 
 
-    def get_sentence(self) -> Dict:
+    def get_sentence(self, i: int) -> Dict:
         '''
         Return one result.
 
         Parameters
         ----------
+        i: int
+            The index of the search results to fetch.
 
         Returns
         -------
         Result dictionary. Contains
-            str: The search result number
-            str: Total number of search results
             str: The sentence, in the `from_language`
             str: The translations of the sentence, in the `to_language`
             str: URL to source Tatoeba page
         '''
-        if self.n > self.num_results:
+        if i > self.num_results or i <= 0:
             return {}
-        if len(self.results) == 0:
+
+        while i > len(self.results):
             self.scrape()
-        sentence, translations, url = self.results[self.n]
+
+        sentence, translations, url = self.results[i-1]
 
         result = {
-            'id': str(self.n),
-            'total': str(self.num_results),
             'sentence': sentence,
             'translations': translations,
             'url': url
         }
-        self.n += 1
         return result
 
     def scrape(self) -> None:
@@ -140,8 +138,11 @@ class TatoebaScraper():
             translations = '\n'.join(translations)
             self.results.append((sentence, translations, link))
 
-# x = TatoebaScraper("dog", "🇬🇧 English", "🇻🇳 Vietnamese")
+x = TatoebaScraper("doggeee", "🇬🇧 English", "🇻🇳 Vietnamese")
 # print(x.num_results)
-# print(x.get_sentence())
-# print(x.get_sentence())
-# print(x.get_sentence())
+# print(x.get_sentence(1))
+# print(x.get_sentence(0))
+# print(x.get_sentence(11))
+# print(x.get_sentence(1))
+# print(x.get_sentence(99))
+# print(x.get_sentence(98))
