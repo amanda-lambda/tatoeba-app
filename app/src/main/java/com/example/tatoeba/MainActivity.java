@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String from_lang;
     private String to_lang;
+    private PyObject scraper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,22 +99,43 @@ public class MainActivity extends AppCompatActivity {
 
                     // TATOEBA SCRAPER ---------------------------
                     PyObject module = py.getModule("scraper");
-                    PyObject scraper = module.callAttr("TatoebaScraper",
+                    scraper = module.callAttr("TatoebaScraper",
                             String.valueOf(query.getText()), from_lang, to_lang);
                     Map<PyObject, PyObject> result = scraper.callAttr("get_sentence").asMap();
 
                     // UPDATE UI -------------------------
                     TextView sentence = findViewById(R.id.sentence);
+                    TextView translations = findViewById(R.id.translations);
+                    TextView source_url = findViewById(R.id.source_url);
+                    TextView track_result = findViewById(R.id.track_result);
+
                     sentence.setText(result.get("sentence").toString());
-                    translations.setText(result.get("translations")).toString());
+                    translations.setText(result.get("translations").toString());
+                    source_url.setText(result.get("url").toString());
+                    track_result.setText(result.get("id").toString() + " / " + result.get("total").toString());
+
                     handled = true;
                 }
                 return handled;
             }
         });
 
+        Button page_left = findViewById(R.id.page_left);
+        page_left.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // TODO - Check empty dictionary / end of dictionary
         // TODO - Paging buttons
         // TODO - labels above spinners
+    }
+
+    public static void update_sentence() {
+
     }
 
     public static void hideSoftKeyboard(Activity activity) {

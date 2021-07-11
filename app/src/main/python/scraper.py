@@ -72,11 +72,14 @@ class TatoebaScraper():
         '''
         Return one result.
 
+        Parameters
+        ----------
+
         Returns
         -------
         Result dictionary. Contains
-            int: The search result number
-            int: Total number of search results
+            str: The search result number
+            str: Total number of search results
             str: The sentence, in the `from_language`
             str: The translations of the sentence, in the `to_language`
             str: URL to source Tatoeba page
@@ -85,16 +88,16 @@ class TatoebaScraper():
             return {}
         if len(self.results) == 0:
             self.scrape()
-        sentence, translations, url = self.results.pop(0)
-        self.n += 1
+        sentence, translations, url = self.results[self.n]
 
         result = {
-            'id': self.n,
-            'total': self.num_results,
+            'id': str(self.n),
+            'total': str(self.num_results),
             'sentence': sentence,
             'translations': translations,
             'url': url
         }
+        self.n += 1
         return result
 
     def scrape(self) -> None:
