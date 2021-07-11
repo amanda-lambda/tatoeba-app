@@ -8,6 +8,9 @@
     <string name="default_track_result">1 / 1</string>
     <string name="default_source_url">❤</string>
     <string name="default_search"></string>
+    <string name="search_hint">🔎 Search</string>
+    <string name="from_spinner_label">FROM</string>
+    <string name="to_spinner_label">TO</string>
 
     <string-array name="languages_array">
         <item>🇫🇷 French</item>

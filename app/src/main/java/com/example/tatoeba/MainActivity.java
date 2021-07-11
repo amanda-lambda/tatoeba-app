@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO - Check empty dictionary / end of dictionary
         // TODO - Paging buttons
-        // TODO - labels above spinners
     }
 
     public static void update_sentence() {
