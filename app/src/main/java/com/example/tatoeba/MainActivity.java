@@ -98,3 +98,39 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
+public class AndroidPythonCallActivity extends Activity {
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        // in case you have created a separate IntentBuilders.java file
+        // Intent intent = IntentBuilders.buildStartInTerminalIntent(new File("/sdcard/sl4a/scripts/say_time.py"));
+
+        // else use this one
+        Intent intent = buildStartInTerminalIntent(new File("/sdcard/sl4a/scripts/hello_world.py"));
+
+        Log.d("SL4A Launcher", "The intent is " + intent.toString());
+        startActivity(intent);
+
+    } // onCreate
+
+    /**
+     * Builds an intent that launches a script in a terminal.
+     *
+     * @param script
+     *            the script to launch
+     * @return the intent that will launch the script
+     */
+    public static Intent buildStartInTerminalIntent(File script) {
+        final ComponentName componentName = Constants.SL4A_SERVICE_LAUNCHER_COMPONENT_NAME;
+        Intent intent = new Intent();
+        intent.setComponent(componentName);
+        intent.setAction(Constants.ACTION_LAUNCH_FOREGROUND_SCRIPT);
+        intent.putExtra(Constants.EXTRA_SCRIPT_PATH, script.getAbsolutePath());
+        return intent;
+    } // buildStartInTerminalIntent
+}
+
