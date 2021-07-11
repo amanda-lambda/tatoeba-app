@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -11,8 +12,18 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        python {
+            buildPython "C:/Users/amand/AppData/Local/Programs/Python/Python37/python.exe"
+            pip {
+                // A pip requirement specifier, with or without a version number:
+                install "beautifulsoup4==4.9.3"
+                install "requests==2.24.0"
+            }
+        }
     }
 
     buildTypes {
@@ -25,6 +36,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+repositories {
+    maven { url "https://chaquo.com/maven" }
 }
 
 dependencies {

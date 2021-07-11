@@ -15,15 +15,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
+
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
+
+    private String from_lang;
+    private String to_lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // PYTHON SET UP --------------
+        if (! Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+        Python py = Python.getInstance();
+
         // FROM SPINNER -----------------
-        Spinner from_spinner = (Spinner) findViewById(R.id.from_spinner);
+        Spinner from_spinner = findViewById(R.id.from_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.languages_array, android.R.layout.simple_spinner_item);
@@ -37,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         from_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               from_lang = parent.getItemAtPosition(position).toString();
                 Toast.makeText(parent.getContext(),
                 "From Spinner : " + parent.getItemAtPosition(position).toString(),
                 Toast.LENGTH_SHORT).show();
@@ -48,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // TO SPINNER -----------------
-        Spinner to_spinner = (Spinner) findViewById(R.id.to_spinner);
+        Spinner to_spinner = findViewById(R.id.to_spinner);
         // Apply the adapter to the spinner
         to_spinner.setAdapter(adapter);
         // Default to language - Vietnamese
@@ -57,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         to_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                to_lang = parent.getItemAtPosition(position).toString();
                 Toast.makeText(parent.getContext(),
                         "To Spinner : " + parent.getItemAtPosition(position).toString(),
                         Toast.LENGTH_SHORT).show();
@@ -68,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // SEARCH QUERY -------------------
-        EditText query = (EditText) findViewById(R.id.searchQuery);
+        EditText query = findViewById(R.id.searchQuery);
         query.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -77,11 +94,25 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(),
                             "Query : " + query.getText(), Toast.LENGTH_SHORT).show();
                     hideSoftKeyboard(MainActivity.this);
+
+                    // TATOEBA SCRAPER ---------------------------
+                    PyObject module = py.getModule("scraper");
+                    PyObject scraper = module.callAttr("TatoebaScraper",
+                            String.valueOf(query.getText()), from_lang, to_lang);
+                    Map<PyObject, PyObject> result = scraper.callAttr("get_sentence").asMap();
+
+                    // UPDATE UI -------------------------
+                    TextView sentence = findViewById(R.id.sentence);
+                    sentence.setText(result.get("sentence").toString());
+                    translations.setText(result.get("translations")).toString());
                     handled = true;
                 }
                 return handled;
             }
         });
+
+        // TODO - Paging buttons
+        // TODO - labels above spinners
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -97,40 +128,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-public class AndroidPythonCallActivity extends Activity {
-
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-
-        // in case you have created a separate IntentBuilders.java file
-        // Intent intent = IntentBuilders.buildStartInTerminalIntent(new File("/sdcard/sl4a/scripts/say_time.py"));
-
-        // else use this one
-        Intent intent = buildStartInTerminalIntent(new File("/sdcard/sl4a/scripts/hello_world.py"));
-
-        Log.d("SL4A Launcher", "The intent is " + intent.toString());
-        startActivity(intent);
-
-    } // onCreate
-
-    /**
-     * Builds an intent that launches a script in a terminal.
-     *
-     * @param script
-     *            the script to launch
-     * @return the intent that will launch the script
-     */
-    public static Intent buildStartInTerminalIntent(File script) {
-        final ComponentName componentName = Constants.SL4A_SERVICE_LAUNCHER_COMPONENT_NAME;
-        Intent intent = new Intent();
-        intent.setComponent(componentName);
-        intent.setAction(Constants.ACTION_LAUNCH_FOREGROUND_SCRIPT);
-        intent.putExtra(Constants.EXTRA_SCRIPT_PATH, script.getAbsolutePath());
-        return intent;
-    } // buildStartInTerminalIntent
-}
-
