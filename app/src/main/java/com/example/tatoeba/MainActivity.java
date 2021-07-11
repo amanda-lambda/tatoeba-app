@@ -104,10 +104,6 @@ public class MainActivity extends AppCompatActivity {
                             String.valueOf(query.getText()), from_lang, to_lang);
                     Map<PyObject, PyObject> result = scraper.callAttr("get_sentence", curr_page).asMap();
 
-                    if (result.isEmpty()) {
-                        return true;
-                    }
-
                     // UPDATE UI -------------------------
                     TextView sentence = findViewById(R.id.sentence);
                     TextView translations = findViewById(R.id.translations);
@@ -115,10 +111,9 @@ public class MainActivity extends AppCompatActivity {
                     TextView track_result = findViewById(R.id.track_result);
 
                     if (result.isEmpty()) {
-                        sentence.setText("No search results found for your query " + String.valueOf(query.getText()) + ".");
+                        sentence.setText("No search results found for your query \"" + String.valueOf(query.getText()) + "\".");
                         translations.setText("Please try again with another query!");
                         source_url.setText("\uD83D\uDC94");
-                        return true;
                     }
                     else {
                         sentence.setText(result.get("sentence").toString());
@@ -126,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                         source_url.setText(result.get("url").toString());
                         track_result.setText(String.valueOf(curr_page) + " / " + scraper.get("num_results").toString());
                     }
-
                     handled = true;
                 }
                 return handled;
