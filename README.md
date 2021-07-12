@@ -1,7 +1,7 @@
 # Tatoeba Android Application
 
 <p align="center">
-  <img src="app/src/main/ic_launcher-playstore.png" />
+  <img src="app/src/main/ic_launcher-playstore.png" width="100" height="100"/>
 </p>
 
 This is an Android application for [Tatoeba](https://tatoeba.org). Tatoeba is a collection of sentences and translations that is open-source and collaborative. It's great for language study - I use it all the time for finding example sentences for a better idea of how to use new vocabulary! This project was motivated by the fact that the existing Tateoba application available on the Google Play store is... not the best... (IYKYK :grimacing:)
