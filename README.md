@@ -19,7 +19,10 @@ Overall, I'm very happy with the final product! I think that it looks much more 
 
 <p align="center">
   <img src="docs/wireframe.png"/>
-  <i>Some rough wireframes for the project. I'm not a UI/UX designer by any means, but I thought it was quite fun to do (and very helpful!)</i>
+</p>
+
+<p align="center">
+    <i>Some rough wireframes for the project. I'm not a UI/UX designer by any means, but I thought it was quite fun to do (and very helpful!)</i>
 </p>
 
 # License
