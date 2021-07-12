@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
@@ -56,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                from_lang = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(),
-                "From Spinner : " + parent.getItemAtPosition(position).toString(),
-                Toast.LENGTH_SHORT).show();
            }
 
            @Override
@@ -77,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 to_lang = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(),
-                        "To Spinner : " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -94,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Toast.makeText(v.getContext(),
-                            "Query : " + query.getText(), Toast.LENGTH_SHORT).show();
                     hideSoftKeyboard(MainActivity.this);
 
                     // TATOEBA SCRAPER ---------------------------
@@ -109,11 +100,13 @@ public class MainActivity extends AppCompatActivity {
                     TextView translations = findViewById(R.id.translations);
                     TextView source_url = findViewById(R.id.source_url);
                     TextView track_result = findViewById(R.id.track_result);
+                    curr_page = 1;
 
                     if (result.isEmpty()) {
                         sentence.setText("No search results found for your query \"" + String.valueOf(query.getText()) + "\".");
                         translations.setText("Please try again with another query!");
                         source_url.setText("\uD83D\uDC94");
+                        track_result.setText(R.string.default_track_result);
                     }
                     else {
                         sentence.setText(result.get("sentence").toString());
@@ -170,11 +163,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-        // TODO - Check empty dictionary / end of dictionary
-        // TODO - Paging buttons
     }
 
     public static void update_sentence() {

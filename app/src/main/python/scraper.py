@@ -23,9 +23,8 @@ tatoeba_language_codes = {
 
 
 def normalize(x):
-    # x = x.replace('\\\\', '\\')
     y = unicodedata.normalize('NFKD', x)
-    # print(x.decode('utf-8'), y.decode('utf-8'))
+    y = y.encode('latin1').decode('unicode_escape')
     return y
 
 
@@ -119,7 +118,8 @@ class TatoebaScraper():
             for match in matches:
                 match_text = normalize(match.text)
                 if 'result' in match_text:
-                    self.num_results = int(re.findall("\((.*) result", match_text)[0])
+                    self.num_results = re.findall("\((.*) result", match_text)[0]
+                    self.num_results = int(self.num_results.replace(',',''))
                     self.num_pages = math.ceil(self.num_results / 10)
                     break
 
@@ -138,9 +138,16 @@ class TatoebaScraper():
             translations = '\n'.join(translations)
             self.results.append((sentence, translations, link))
 
-x = TatoebaScraper("doggeee", "🇬🇧 English", "🇻🇳 Vietnamese")
+# x = TatoebaScraper("dog barking", "🇬🇧 English", "🇻🇳 Vietnamese")
 # print(x.num_results)
-# print(x.get_sentence(1))
+# d = x.get_sentence(1)
+# y = d['translations']
+# print(y)
+# print(y.encode('utf-8'))
+# y = y.replace('//', '')
+# print(y.decode("utf8"))
+# for i in y:
+#     print(i)
 # print(x.get_sentence(0))
 # print(x.get_sentence(11))
 # print(x.get_sentence(1))
