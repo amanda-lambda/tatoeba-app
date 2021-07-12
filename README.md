@@ -1,8 +1,5 @@
-# Tatoeba Android Application
+# ![logo](app/src/main/ic_launcher-playstore.png) Tatoeba Android Application
 
-<p align="center">
-  <img src="app/src/main/ic_launcher-playstore.png" width="100" height="100"/>
-</p>
 
 This is an Android application for [Tatoeba](https://tatoeba.org). Tatoeba is a collection of sentences and translations that is open-source and collaborative. It's great for language study - I use it all the time for finding example sentences for a better idea of how to use new vocabulary! This project was motivated by the fact that the existing Tateoba application available on the Google Play store is... not the best... (IYKYK :grimacing:)
 
@@ -20,3 +17,6 @@ With increased familiarity with some of the tools, I also thought it might be fu
 
 Overall, I'm very happy with the final product! I think that it looks much more professional than my last attempt (Finally getting a hang of the Layout Editor!) I need to obtain an open source license from Chaquopy so the app can stay open for long periods of time - expect an update on that soon!
 
+# License
+
+MIT License. See `LICENSE` for more details.
