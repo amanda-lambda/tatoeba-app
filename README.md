@@ -1,7 +1,7 @@
 # Tatoeba Android Application
 
 
-This is an Android application for [Tatoeba](https://tatoeba.org). Tatoeba is a collection of sentences and translations that is open-source and collaborative. It's great for language study - I use it all the time for finding example sentences for a better idea of how to use new vocabulary! This project was motivated by the fact that the existing Tateoba application available on the Google Play store is... not the best... (IYKYK :grimacing:)
+This is an Android application for [Tatoeba](https://tatoeba.org). Tatoeba is a collection of sentences and translations that is open-source and collaborative. It's great for language study - I use it all the time for finding example sentences for a better idea of how to use new vocabulary! This project was motivated by the fact that the existing mobile version of the Tateoba website is not the easiest to use. I thought this app could be an easier and more pleasant way of interacting with Tatoeba on your mobile device!
 
 Hope you all enjoy it! A short demo of the way the application works (simply select a source and target language, enter a search query, and get delivered example sentences and translations):
 
@@ -17,6 +17,10 @@ With increased familiarity with some of the tools, I also thought it might be fu
 
 Overall, I'm very happy with the final product! I think that it looks much more professional than my last attempt (Finally getting a hang of the Layout Editor!) I need to obtain an open source license from Chaquopy so the app can stay open for long periods of time - expect an update on that soon!
 
+<p align="center">
+  <img src="docs/wireframe.png"/>
+</p>
+<p style="text-align: center;"><i>Some rough wireframes for the project. I'm not a UI/UX designer by any means, but I thought it was quite fun to do (and very helpful!)</i></p>
 # License
 
 MIT License. See `LICENSE` for more details.
