@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    curr_page = 1;
                     hideSoftKeyboard(MainActivity.this);
 
                     // TATOEBA SCRAPER ---------------------------
@@ -100,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                     TextView translations = findViewById(R.id.translations);
                     TextView source_url = findViewById(R.id.source_url);
                     TextView track_result = findViewById(R.id.track_result);
-                    curr_page = 1;
 
                     if (result.isEmpty()) {
                         sentence.setText("No search results found for your query \"" + String.valueOf(query.getText()) + "\".");

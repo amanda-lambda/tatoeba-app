@@ -137,19 +137,3 @@ class TatoebaScraper():
             translations = [normalize(m[1]) for m in match3 if m[2] == self.to_lang_code]
             translations = '\n'.join(translations)
             self.results.append((sentence, translations, link))
-
-# x = TatoebaScraper("dog barking", "🇬🇧 English", "🇻🇳 Vietnamese")
-# print(x.num_results)
-# d = x.get_sentence(1)
-# y = d['translations']
-# print(y)
-# print(y.encode('utf-8'))
-# y = y.replace('//', '')
-# print(y.decode("utf8"))
-# for i in y:
-#     print(i)
-# print(x.get_sentence(0))
-# print(x.get_sentence(11))
-# print(x.get_sentence(1))
-# print(x.get_sentence(99))
-# print(x.get_sentence(98))
